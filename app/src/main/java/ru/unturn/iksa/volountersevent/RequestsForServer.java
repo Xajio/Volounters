@@ -22,11 +22,15 @@ public class RequestsForServer {
 
     private static final String BASE_URL = "http://unturn.ru/samsung/";
 
-    public void registerOrganisation(){
-        getRequest("?registerOrganisation");
+    public static boolean registerCompany(String firstName, String secondName, String email, String hashPassword, String phoneNumber, String INN){
+        return getRequest("?registerOrganisation&mail=" + email + "&firstName=" + firstName + "&secondName=" + secondName + "&password=" + hashPassword + "&phoneNumber=" + phoneNumber + "&INN=" + INN) == "1";
     }
-    public void registerClient(){
-        getRequest("?registerClient");
+    public static boolean registerClient(String firstName, String secondName, String email, String hashPassword, String phoneNumber){
+        return getRequest("?registerClient&mail=" + email + "&firstName=" + firstName + "&secondName=" + secondName + "&password=" + hashPassword + "&phoneNumber=" + phoneNumber) == "1";
+    }
+    public static boolean checkClient(String mail, String password){
+        boolean result = getRequest("?checkClient&mail=" + mail + "&password=" + password) == "1";
+        return result;
     }
     public void addEvent(){
         getRequest("?addEvent");

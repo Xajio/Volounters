@@ -15,6 +15,5 @@ public class EventActivity extends AppCompatActivity {
         Event event = (Event) getIntent().getParcelableExtra(Event.class.getCanonicalName());
         ((TextView)findViewById(R.id.textEventName)).setText(event.eventName);
         ((TextView)findViewById(R.id.dateEvent)).setText(event.startOfEvent);
-        Log.d("TESt", event.eventName);
     }
 }

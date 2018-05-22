@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <EditText
         android:id="@+id/loginPassword"
@@ -32,5 +32,34 @@
         android:inputType="textPassword"
         android:text="jkgfj"
         tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="201dp" />
+        tools:layout_editor_absoluteY="176dp" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="211dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="250dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginStart="70dp"
+        android:text="Войти"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginPassword"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="210dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="187dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="1dp"
+        android:text="Регистрация"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 </android.support.constraint.ConstraintLayout>

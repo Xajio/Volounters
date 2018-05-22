@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">VolountersEvent</string>
     <string name="exampleEmail">example@gmail.com</string>
+    <string name="invalidPassword">Passwords doesn`t equal</string>
+    <string name="registrationButton">Зарегистрироваться</string>
 </resources>

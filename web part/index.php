@@ -1,5 +1,5 @@
 <?php
-$db = new mysqli ('localhost', 'license', 'password', 'samsung'); //A6v4F6t0
+$db = new mysqli ('localhost', 'license', 'password', 'samsung');
 $db->set_charset("utf8");
 if(isset($_GET["getEvents"])){
     $query = $db->query("SELECT * FROM `eventssamsung`");
@@ -48,7 +48,7 @@ class Dadata
              curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                  'Content-Type: application/json',
                  'Accept: application/json',
-                 'Authorization: Token <apikey>' //622b1eaa3c35a4bc6a64375eab08078b93d6cdee
+                 'Authorization: Token <apikey>'
               ));
              curl_setopt($ch, CURLOPT_POST, 1);
              // json_encode

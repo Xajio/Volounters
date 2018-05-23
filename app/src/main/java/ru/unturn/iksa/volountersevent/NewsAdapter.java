@@ -27,8 +27,8 @@ public class NewsAdapter extends ArrayAdapter<News>{
 
 // Заполняем адаптер
         ImageByUrl url = new ImageByUrl((ImageView) convertView.findViewById(R.id.newsImage));
-        url.doInBackground("https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Chrome_icon_%282011%29.png");
-        ((TextView) convertView.findViewById(R.id.startofevent)).setText(news.date);
+        url.doInBackground(news.linkImage);
+        ((TextView) convertView.findViewById(R.id.newsShortDescription)).setText(news.shortNews);
         return convertView;
     }
 }

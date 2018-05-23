@@ -13,7 +13,7 @@ public class EventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        Event[] events1 = RequestsForServer.getEvents("ufa");
+        Event[] events1 = RequestsForServer.getEvents("ufa", getPreferences(MODE_PRIVATE).getString("email_login", ""));
         final EventsAdapter adapter = new EventsAdapter(this, events1);
         ListView lv = (ListView) findViewById(R.id.listview);
         lv.setAdapter(adapter);

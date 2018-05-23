@@ -40,8 +40,9 @@ public class LoginActivity extends AppCompatActivity {
                         ed.commit();
                         Intent intent = new Intent(LoginActivity.this, EventsActivity.class);
                         startActivity(intent);
+                        Toast.makeText(LoginActivity.this, "Login successfull :)", Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(LoginActivity.this, "Login or password is not correct", Toast.LENGTH_LONG);
+                        Toast.makeText(LoginActivity.this, "Login or password is not correct", Toast.LENGTH_LONG).show();
                         Log.d("TOAST", "test");
                     }
                 }catch (NoSuchAlgorithmException ex){

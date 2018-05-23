@@ -59,8 +59,9 @@ public class RegisterUserActivity extends AppCompatActivity {
                         SecurityClass.SHA1(firstPassword.getText().toString()), phone.getText().toString())){
                         Intent intent = new Intent(RegisterUserActivity.this, LoginActivity.class);
                         startActivity(intent);
+                        Toast.makeText(RegisterUserActivity.this, "Register has finished! Thanks.", Toast.LENGTH_LONG).show();
                     }else { //10322376
-                        Toast.makeText(RegisterUserActivity.this, "Register failed, try later", Toast.LENGTH_LONG);
+                        Toast.makeText(RegisterUserActivity.this, "Register failed, try later", Toast.LENGTH_LONG).show();
                     }
 
                 }catch (NoSuchAlgorithmException ex){

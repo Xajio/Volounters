@@ -55,15 +55,18 @@ public class RequestsForServer {
                         jsonObject.getString("fullNews"), jsonObject.getString("linkImage"), jsonObject.getString("date")));
             }
             News[] allNewsArray = new News[allNewsList.size()];
-
+            for (int i = 0; i < allNewsList.size(); i++) {
+                allNewsArray[i] = allNewsList.get(i);
+            }
+            return allNewsArray;
         }catch (JSONException ex){
 
         }
         return new News[0];
     }
 
-    public static Event[] getEvents(String city){
-        String[] requestWithEvents = getRequest("?getEvents&city=" + city).trim().split("/");
+    public static Event[] getEvents(String city, String mail){
+        String[] requestWithEvents = getRequest("?getEvents&city=" + city + "&mail=" + mail).trim().split("/");
         /* event[0] = ID of Event
            event[1] = Name of Event
            event[2] = Starter Of Event

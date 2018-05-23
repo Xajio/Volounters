@@ -18,12 +18,15 @@ public class EventActivity extends AppCompatActivity {
         final Event event = (Event) getIntent().getParcelableExtra(Event.class.getCanonicalName());
         ((TextView)findViewById(R.id.textEventName)).setText(event.name);
         ((TextView)findViewById(R.id.dateEvent)).setText(event.startOfEvent);
-        Button enterButton = (Button)findViewById(R.id.enterToEvent);
+        final Button enterButton = (Button)findViewById(R.id.enterToEvent);
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences sPref = getPreferences(MODE_PRIVATE);
-                RequestsForServer.enterToEvent(sPref.getString("email_login", ""), event.id);
+                if(RequestsForServer.enterToEvent(sPref.getString("email_login", ""), event.id)){
+                    Toast.makeText(EventActivity.this, "You`re successfull writed.", Toast.LENGTH_LONG).show();
+                };
+                enterButton.setEnabled(false);
             }
         });
     }

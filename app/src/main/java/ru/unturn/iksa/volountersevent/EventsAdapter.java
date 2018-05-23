@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class EventsAdapter extends ArrayAdapter<Event> {
     public EventsAdapter(Context context, Event[] arr) {
-        super(context, R.layout.adapters_list, arr);
+        super(context, R.layout.adapters_events_list, arr);
     }
 
     @Override
@@ -21,11 +21,11 @@ public class EventsAdapter extends ArrayAdapter<Event> {
         final Event event = getItem(position);
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapters_list, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapters_events_list, null);
         }
 
 // Заполняем адаптер
-        ((TextView) convertView.findViewById(R.id.eventname)).setText(event.eventName + "\n" + event.ownerOfEvent);
+        ((TextView) convertView.findViewById(R.id.eventname)).setText(event.name + "\n" + event.owner);
         ((TextView) convertView.findViewById(R.id.startofevent)).setText(event.startOfEvent);
         return convertView;
     }

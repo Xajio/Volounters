@@ -1,8 +1,11 @@
 package ru.unturn.iksa.volountersevent;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,8 +15,16 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        Event event = (Event) getIntent().getParcelableExtra(Event.class.getCanonicalName());
-        ((TextView)findViewById(R.id.textEventName)).setText(event.eventName);
+        final Event event = (Event) getIntent().getParcelableExtra(Event.class.getCanonicalName());
+        ((TextView)findViewById(R.id.textEventName)).setText(event.name);
         ((TextView)findViewById(R.id.dateEvent)).setText(event.startOfEvent);
+        Button enterButton = (Button)findViewById(R.id.enterToEvent);
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sPref = getPreferences(MODE_PRIVATE);
+                RequestsForServer.enterToEvent(sPref.getString("email_login", ""), event.id);
+            }
+        });
     }
 }

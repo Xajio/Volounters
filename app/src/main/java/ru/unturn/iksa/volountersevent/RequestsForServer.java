@@ -1,18 +1,21 @@
 package ru.unturn.iksa.volountersevent;
 
-import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.text.Html;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Iksa on 11.03.2018.
@@ -20,34 +23,58 @@ import java.util.ArrayList;
 
 public class RequestsForServer {
 
-    private static final String BASE_URL = "http://unturn.ru/samsung/";
+    private static final String BASE_URL = "https://samsung.eatric.ru/";
 
     public static boolean registerCompany(String firstName, String secondName, String email, String hashPassword, String phoneNumber, String INN){
-        return getRequest("?registerOrganisation&mail=" + email + "&firstName=" + firstName + "&secondName=" + secondName + "&password=" + hashPassword + "&phoneNumber=" + phoneNumber + "&INN=" + INN) == "1";
+        return getRequest("?registerOrganisation&mail=" + email + "&firstName=" + firstName + "&secondName=" + secondName + "&password=" + hashPassword + "&phoneNumber=" + phoneNumber + "&INN=" + INN).trim().equals("1");
     }
     public static boolean registerClient(String firstName, String secondName, String email, String hashPassword, String phoneNumber){
-        return getRequest("?registerClient&mail=" + email + "&firstName=" + firstName + "&secondName=" + secondName + "&password=" + hashPassword + "&phoneNumber=" + phoneNumber) == "1";
+        return getRequest("?registerClient&mail=" + email + "&firstName=" + firstName + "&secondName=" + secondName + "&password=" + hashPassword + "&phoneNumber=" + phoneNumber).trim().equals("1");
     }
     public static boolean checkClient(String mail, String password){
-        boolean result = getRequest("?checkClient&mail=" + mail + "&password=" + password) == "1";
+        boolean result = getRequest("?checkClient&mail=" + mail + "&password=" + password).trim().equals("1");
         return result;
     }
-    public void addEvent(){
-        getRequest("?addEvent");
+    public static boolean addEvent(){
+        return getRequest("?addEvent").equals("1");
+    }
+
+    public static boolean enterToEvent(String emailClient, int idOfEvent){
+        return getRequest("?enterToEvent&mail=" + emailClient + "&idOfEvent=" + idOfEvent).trim().equals("1");
+    }
+
+    public static News[] getNews(){
+        String requestWithNews = getRequest("?getNews");
+        ArrayList<News> allNewsList = new ArrayList<News>();
+        try {
+            JSONObject jsonResponse = new JSONObject(requestWithNews);
+            JSONArray jsonData = jsonResponse.getJSONArray("news");
+            for (int i = 0; i < jsonData.length(); i++) {
+                JSONObject jsonObject = jsonData.getJSONObject(i);
+                allNewsList.add(new News(jsonObject.getInt("id"), jsonObject.getString("header"), jsonObject.getString("shortVersion"),
+                        jsonObject.getString("fullNews"), jsonObject.getString("linkImage"), jsonObject.getString("date")));
+            }
+            News[] allNewsArray = new News[allNewsList.size()];
+
+        }catch (JSONException ex){
+
+        }
+        return new News[0];
     }
 
     public static Event[] getEvents(String city){
-        String[] requestWithEvents = getRequest("?getEvents&city=" + city).split("/");
+        String[] requestWithEvents = getRequest("?getEvents&city=" + city).trim().split("/");
         /* event[0] = ID of Event
            event[1] = Name of Event
            event[2] = Starter Of Event
            event[3] = Location
-           event[4] = date Of Event
+           event[4] = Description
+           event[5] = date Of Event
         */
         ArrayList<Event> events = new ArrayList<Event>();
         for(String stringEvent : requestWithEvents){
             String[] event = stringEvent.split("%");
-            Event classOfEvent = new Event(Integer.parseInt(event[0]), event[1], event[2], event[3], event[4]);
+            Event classOfEvent = new Event(Integer.parseInt(event[0]), event[1], event[2], event[3], event[5], event[4]);
             events.add(classOfEvent);
         }
         Event[] justTest = new Event[events.size()];
@@ -62,12 +89,14 @@ public class RequestsForServer {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             URL url = new URL(BASE_URL + params);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setReadTimeout(5000);
             urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Mobile Safari/537.36");
             urlConnection.connect();
-            return readStream(urlConnection.getInputStream());
+            String result = readStream(urlConnection.getInputStream());
+            Log.d("ResultRequest", result);
+            return result;
         }catch (IOException ex){
             ex.printStackTrace();
             return null;
@@ -96,3 +125,5 @@ public class RequestsForServer {
         return sb.toString();
     }
 }
+
+

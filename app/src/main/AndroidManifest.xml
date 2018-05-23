@@ -23,7 +23,9 @@
         <activity android:name=".EventActivity" />
         <activity android:name=".RegisterUserActivity" />
         <activity android:name=".RegisterCompanyActivity" />
-        <activity android:name=".CompanyAddEventActivity"></activity>
+        <activity android:name=".CompanyAddEventActivity" />
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".NewsOneActivity"></activity>
     </application>
 
 </manifest>

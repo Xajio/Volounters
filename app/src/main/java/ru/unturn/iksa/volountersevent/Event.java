@@ -9,16 +9,18 @@ import android.os.Parcelable;
 
 public class Event implements Parcelable {
     public int id;
-    public String eventName;
-    public String ownerOfEvent;
+    public String name;
+    public String owner;
     public String startOfEvent;
+    public String description;
     public String location;
 
-    Event(int id, String eventName, String ownerOfEvent, String location, String startOfEvent){
+    Event(int id, String eventName, String ownerOfEvent, String location, String startOfEvent, String description){
         this.id = id;
-        this.eventName = eventName;
-        this.ownerOfEvent = ownerOfEvent;
+        this.name = eventName;
+        this.owner = ownerOfEvent;
         this.location = location;
+        this.description = description;
         this.startOfEvent = startOfEvent;
     }
 
@@ -29,9 +31,10 @@ public class Event implements Parcelable {
     // упаковываем объект в Parcel
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(id);
-        parcel.writeString(eventName);
-        parcel.writeString(ownerOfEvent);
+        parcel.writeString(name);
+        parcel.writeString(owner);
         parcel.writeString(startOfEvent);
+        parcel.writeString(description);
         parcel.writeString(location);
     }
 
@@ -48,9 +51,10 @@ public class Event implements Parcelable {
     // конструктор, считывающий данные из Parcel
     private Event(Parcel parcel) {
         id = parcel.readInt();
-        eventName = parcel.readString();
-        ownerOfEvent = parcel.readString();
+        name = parcel.readString();
+        owner = parcel.readString();
         startOfEvent = parcel.readString();
+        description = parcel.readString();
         location = parcel.readString();
     }
 }

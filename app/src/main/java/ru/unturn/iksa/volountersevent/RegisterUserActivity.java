@@ -56,7 +56,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                 EditText secondName = (EditText)findViewById(R.id.secondName);
                 try {
                     if(RequestsForServer.registerClient(firstName.getText().toString(), secondName.getText().toString(), registerEmail.getText().toString(),
-                       SecurityClass.SHA1(firstPassword.getText().toString()), phone.getText().toString())){
+                        SecurityClass.SHA1(firstPassword.getText().toString()), phone.getText().toString())){
                         Intent intent = new Intent(RegisterUserActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }else { //10322376

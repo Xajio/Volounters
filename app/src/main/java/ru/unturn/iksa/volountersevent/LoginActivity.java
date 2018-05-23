@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sPref = getPreferences(MODE_PRIVATE);
         if(!sPref.getString("email_login", "").isEmpty()){
-            Intent intent = new Intent(this, EventsActivity.class);
+            Intent intent = new Intent(this, NewsActivity.class);
             startActivity(intent);
         }
         setContentView(R.layout.activity_login);
@@ -32,7 +32,9 @@ public class LoginActivity extends AppCompatActivity {
                 EditText email = (EditText)findViewById(R.id.loginEmail);
                 EditText password = (EditText)findViewById(R.id.loginPassword);
                 try {
-                    if (RequestsForServer.checkClient(email.getText().toString(), SecurityClass.SHA1(password.getText().toString()))) {
+                    boolean result = RequestsForServer.checkClient(email.getText().toString(), SecurityClass.SHA1(password.getText().toString()));
+                    Log.d("Result LOGIN", result + "");
+                    if (result) {
                         SharedPreferences.Editor ed = sPref.edit();
                         ed.putString("email_login", email.getText().toString());
                         ed.commit();
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }else{
                         Toast.makeText(LoginActivity.this, "Login or password is not correct", Toast.LENGTH_LONG);
+                        Log.d("TOAST", "test");
                     }
                 }catch (NoSuchAlgorithmException ex){
                     Log.e("Error", ex.getMessage());
